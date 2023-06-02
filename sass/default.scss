@@ -40,52 +40,51 @@
 	--error-hover: #{$red-700};
 	--error-focus: #{rgba($red-600, 0.125)};
 	--error-inverse: #{$white};
+
+	--success-h1-color: #{$green-600};
+	--success-h2-color: #{mix($green-600, $grey-500)};
+	--success-h3-color: #{$green-500};
+	--success-h4-color: #{mix($green-500, $green-400)};
+	--success-h5-color: #{$green-400};
+	--success-h6-color: #{mix($green-400, $green-300)};
+
+	--warning-h1-color: #{$amber-800};
+	--warning-h2-color: #{mix($amber-800, $amber-700)};
+	--warning-h3-color: #{$amber-700};
+	--warning-h4-color: #{mix($amber-700, $amber-600)};
+	--warning-h5-color: #{$amber-600};
+	--warning-h6-color: #{mix($amber-600, $amber-500)};
+
+	--error-h1-color: #{$red-600};
+	--error-h2-color: #{mix($red-600, $red-500)};
+	--error-h3-color: #{$red-500};
+	--error-h4-color: #{mix($red-500, $red-400)};
+	--error-h5-color: #{$red-400};
+	--error-h6-color: #{mix($red-400, $red-300)};
 }
 
-// Success
-:is(button, input[type='submit'], input[type='button'], [role='button']).success {
-	--background-color: var(--success);
-	--border-color: var(--success);
-	--color: var(--success-inverse);
-	cursor: pointer;
+$statuses: success, warning, error;
+$heading-orders: 1, 2, 3, 4, 5, 6;
 
-	&:is([aria-current], :hover, :active, :focus) {
-		--background-color: var(--success-hover);
-		--border-color: var(--success-hover);
-		--color: var(--success-inverse);
+@each $status in $statuses {
+	:is(button, input[type='submit'], input[type='button'], [role='button']).#{$status} {
+		@include btn-ext($status);
 	}
 
-	&:focus {
-		--box-shadow: var(--button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)), 0 0 0 var(--outline-width) var(--success-focus);
+	:is(button, input[type='submit'], input[type='button'], [role='button']).outline.#{$status} {
+		@include outline-ext($status);
 	}
 }
 
-// Outline (success)
-:is(button, input[type='submit'], input[type='button'], [role='button']).outline.success {
-	--color: var(--success);
-
-	&:is([aria-current], :hover, :active, :focus) {
-		--color: var(--success-hover);
+@each $status in $statuses {
+	:is(address, blockquote, dl, figure, form, ol, p, pre, table, ul).#{$status} {
+		color: var(--#{$status});
 	}
-}
 
-// Warning
-:is(button, input[type='submit'], input[type='button'], [role='button']).warning {
-	@include btn-ext(warning);
-}
-
-// Outline (warning)
-:is(button, input[type='submit'], input[type='button'], [role='button']).outline.warning {
-	@include outline-ext(warning);
-}
-
-// Error
-:is(button, input[type='submit'], input[type='button'], [role='button']).error {
-	@include btn-ext(error);
-}
-
-// Outline (error)
-:is(button, input[type='submit'], input[type='button'], [role='button']).outline.error {
-	@include outline-ext(error);
+	@each $order in $heading-orders {
+		h#{$order}.#{$status} {
+			--color: var(--#{$status}-h#{$order}-color);
+		}
+	}
 }
 

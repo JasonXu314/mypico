@@ -1,0 +1,91 @@
+@import '@picocss/pico/scss/pico';
+
+@mixin btn-ext($name) {
+	--background-color: var(--#{$name});
+	--border-color: var(--#{$name});
+	--color: var(--#{$name}-inverse);
+	cursor: pointer;
+
+	&:is([aria-current], :hover, :active, :focus) {
+		--background-color: var(--#{$name}-hover);
+		--border-color: var(--#{$name}-hover);
+		--color: var(--#{$name}-inverse);
+	}
+
+	&:focus {
+		--box-shadow: var(--button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)), 0 0 0 var(--outline-width) var(--#{$name}-focus);
+	}
+}
+
+@mixin outline-ext($name) {
+	--color: var(--#{$name});
+
+	&:is([aria-current], :hover, :active, :focus) {
+		--color: var(--#{$name}-hover);
+	}
+}
+
+:root {
+	--success: #{$green-600};
+	--success-hover: #{$green-700};
+	--success-focus: #{rgba($green-600, 0.125)};
+	--success-inverse: #{$white};
+
+	--warning: #{$amber-800};
+	--warning-hover: #{$amber-700};
+	--warning-focus: #{rgba($amber-800, 0.125)};
+	--warning-inverse: #{$white};
+
+	--error: #{$red-600};
+	--error-hover: #{$red-700};
+	--error-focus: #{rgba($red-600, 0.125)};
+	--error-inverse: #{$white};
+}
+
+// Success
+:is(button, input[type='submit'], input[type='button'], [role='button']).success {
+	--background-color: var(--success);
+	--border-color: var(--success);
+	--color: var(--success-inverse);
+	cursor: pointer;
+
+	&:is([aria-current], :hover, :active, :focus) {
+		--background-color: var(--success-hover);
+		--border-color: var(--success-hover);
+		--color: var(--success-inverse);
+	}
+
+	&:focus {
+		--box-shadow: var(--button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)), 0 0 0 var(--outline-width) var(--success-focus);
+	}
+}
+
+// Outline (success)
+:is(button, input[type='submit'], input[type='button'], [role='button']).outline.success {
+	--color: var(--success);
+
+	&:is([aria-current], :hover, :active, :focus) {
+		--color: var(--success-hover);
+	}
+}
+
+// Warning
+:is(button, input[type='submit'], input[type='button'], [role='button']).warning {
+	@include btn-ext(warning);
+}
+
+// Outline (warning)
+:is(button, input[type='submit'], input[type='button'], [role='button']).outline.warning {
+	@include outline-ext(warning);
+}
+
+// Error
+:is(button, input[type='submit'], input[type='button'], [role='button']).error {
+	@include btn-ext(error);
+}
+
+// Outline (error)
+:is(button, input[type='submit'], input[type='button'], [role='button']).outline.error {
+	@include outline-ext(error);
+}
+

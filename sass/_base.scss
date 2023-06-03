@@ -1,0 +1,92 @@
+@mixin btn-ext($name) {
+	--background-color: var(--#{$name});
+	--border-color: var(--#{$name});
+	--color: var(--#{$name}-inverse);
+	cursor: pointer;
+
+	&:is([aria-current], :hover, :active, :focus) {
+		--background-color: var(--#{$name}-hover);
+		--border-color: var(--#{$name}-hover);
+		--color: var(--#{$name}-inverse);
+	}
+
+	&:focus {
+		--box-shadow: var(--button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)), 0 0 0 var(--outline-width) var(--#{$name}-focus);
+	}
+}
+
+@mixin outline-ext($name) {
+	--color: var(--#{$name});
+
+	&:is([aria-current], :hover, :active, :focus) {
+		--color: var(--#{$name}-hover);
+	}
+}
+
+$background: #{mix($black, $grey-900, 37.5%)} !default;
+
+:root {
+	--background-color: #{$background};
+
+	--success: #{$success-600};
+	--success-hover: #{$success-700};
+	--success-focus: #{rgba($success-600, 0.125)};
+	--success-inverse: #{$white};
+
+	--warning: #{$warning-600};
+	--warning-hover: #{$warning-500};
+	--warning-focus: #{rgba($warning-600, 0.125)};
+	--warning-inverse: #{$white};
+
+	--error: #{$error-600};
+	--error-hover: #{$error-700};
+	--error-focus: #{rgba($error-600, 0.125)};
+	--error-inverse: #{$white};
+
+	--success-h1-color: #{$success-600};
+	--success-h2-color: #{mix($success-600, $success-500)};
+	--success-h3-color: #{$success-500};
+	--success-h4-color: #{mix($success-500, $success-400)};
+	--success-h5-color: #{$success-400};
+	--success-h6-color: #{mix($success-400, $success-300)};
+
+	--warning-h1-color: #{$warning-600};
+	--warning-h2-color: #{mix($warning-600, $warning-500)};
+	--warning-h3-color: #{$warning-500};
+	--warning-h4-color: #{mix($warning-500, $warning-400)};
+	--warning-h5-color: #{$warning-400};
+	--warning-h6-color: #{mix($warning-400, $warning-300)};
+
+	--error-h1-color: #{$error-600};
+	--error-h2-color: #{mix($error-600, $error-500)};
+	--error-h3-color: #{$error-500};
+	--error-h4-color: #{mix($error-500, $error-400)};
+	--error-h5-color: #{$error-400};
+	--error-h6-color: #{mix($error-400, $error-300)};
+}
+
+$statuses: success, warning, error;
+$heading-orders: 1, 2, 3, 4, 5, 6;
+
+@each $status in $statuses {
+	:is(button, input[type='submit'], input[type='button'], [role='button']).#{$status} {
+		@include btn-ext($status);
+	}
+
+	:is(button, input[type='submit'], input[type='button'], [role='button']).outline.#{$status} {
+		@include outline-ext($status);
+	}
+}
+
+@each $status in $statuses {
+	:is(address, blockquote, dl, figure, form, ol, p, pre, table, ul).#{$status} {
+		color: var(--#{$status});
+	}
+
+	@each $order in $heading-orders {
+		h#{$order}.#{$status} {
+			--color: var(--#{$status}-h#{$order}-color);
+		}
+	}
+}
+

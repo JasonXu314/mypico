@@ -34,6 +34,7 @@ $error-800: $red-800;
 $error-900: $red-900;
 
 @import 'base';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 :root {
 	--warning: #{$warning-800};
@@ -47,5 +48,69 @@ $error-900: $red-900;
 	--warning-h4-color: #{mix($warning-700, $warning-600)};
 	--warning-h5-color: #{$warning-600};
 	--warning-h6-color: #{mix($warning-600, $warning-500)};
+
+	--spacing: 0.5rem;
+	--typography-spacing-vertical: 0.75rem;
+	--nav-element-spacing-vertical: 0.5rem;
+	--form-element-spacing-vertical: 0.25rem;
+}
+
+h1 {
+	--typography-spacing-vertical: 1.5rem;
+}
+
+h2 {
+	--typography-spacing-vertical: 1.3125rem;
+}
+
+h3 {
+	--typography-spacing-vertical: 1.125rem;
+}
+
+h4 {
+	--typography-spacing-vertical: 0.937rem;
+}
+
+h5 {
+	--typography-spacing-vertical: 0.84375rem;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	gap: var(--grid-spacing-horizontal);
+
+	&:is(.c, .cr, .cl) * {
+		flex-basis: content;
+		height: fit-content;
+		margin-right: 0;
+	}
+
+	&.cr {
+		justify-content: flex-end;
+	}
+
+	&.cl {
+		justify-content: flex-start;
+	}
+
+	&.center {
+		align-items: center;
+	}
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+	gap: var(--grid-spacing-horizontal);
+
+	* {
+		width: fit-content;
+		margin-bottom: 0;
+	}
+
+	&.center {
+		align-items: center;
+	}
 }
 

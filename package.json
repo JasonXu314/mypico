@@ -8,6 +8,7 @@
 	"scripts": {
 		"build": "nest build",
 		"build:styles": "node css.js",
+		"postbuild": "node css.js",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "nest start",
 		"dev": "nest start --watch",

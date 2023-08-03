@@ -1,53 +1,47 @@
+$css-var-prefix: '';
+
 @import '@picocss/pico/scss/pico';
+@import '@picocss/pico/scss/colors/index';
 
-$success-50: $green-50;
-$success-100: $green-100;
-$success-200: $green-200;
-$success-300: $green-300;
-$success-400: $green-400;
-$success-500: $green-500;
-$success-600: $green-600;
-$success-700: $green-700;
-$success-800: $green-800;
-$success-900: $green-900;
-
-$warning-50: $amber-50;
-$warning-100: $amber-100;
-$warning-200: $amber-200;
-$warning-300: $amber-300;
-$warning-400: $amber-400;
-$warning-500: $amber-500;
-$warning-600: $amber-600;
-$warning-700: $amber-700;
-$warning-800: $amber-800;
-$warning-900: $amber-900;
-
-$error-50: $red-50;
-$error-100: $red-100;
-$error-200: $red-200;
-$error-300: $red-300;
-$error-400: $red-400;
-$error-500: $red-500;
-$error-600: $red-600;
-$error-700: $red-700;
-$error-800: $red-800;
-$error-900: $red-900;
-
-@import 'base';
+@import 'mixins';
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 :root {
-	--warning: #{$warning-800};
-	--warning-hover: #{$warning-700};
-	--warning-focus: #{rgba($warning-800, 0.125)};
+	--success: #{$green-400};
+	--success-hover: #{$green-350};
+	--success-focus: #{rgba($green-400, 0.125)};
+	--success-inverse: #{$white};
+
+	--warning: #{$amber-250};
+	--warning-hover: #{$amber-350};
+	--warning-focus: #{rgba($amber-250, 0.125)};
 	--warning-inverse: #{$white};
 
-	--warning-h1-color: #{$warning-800};
-	--warning-h2-color: #{mix($warning-800, $warning-700)};
-	--warning-h3-color: #{$warning-700};
-	--warning-h4-color: #{mix($warning-700, $warning-600)};
-	--warning-h5-color: #{$warning-600};
-	--warning-h6-color: #{mix($warning-600, $warning-500)};
+	--error: #{$red-500};
+	--error-hover: #{$red-550};
+	--error-focus: #{rgba($red-500, 0.125)};
+	--error-inverse: #{$white};
+
+	--success-h1-color: #{$green-400};
+	--success-h2-color: #{mix($green-400, $green-350)};
+	--success-h3-color: #{$green-350};
+	--success-h4-color: #{mix($green-350, $green-300)};
+	--success-h5-color: #{$green-300};
+	--success-h6-color: #{mix($green-300, $green-250)};
+
+	--warning-h1-color: #{$amber-250};
+	--warning-h2-color: #{mix($amber-250, $amber-200)};
+	--warning-h3-color: #{$amber-200};
+	--warning-h4-color: #{mix($amber-200, $amber-150)};
+	--warning-h5-color: #{$amber-150};
+	--warning-h6-color: #{mix($amber-150, $amber-100)};
+
+	--error-h1-color: #{$red-500};
+	--error-h2-color: #{mix($red-500, $red-450)};
+	--error-h3-color: #{$red-450};
+	--error-h4-color: #{mix($red-450, $red-400)};
+	--error-h5-color: #{$red-400};
+	--error-h6-color: #{mix($red-400, $red-350)};
 
 	--spacing: 0.5rem;
 	--typography-spacing-vertical: 0.75rem;
@@ -111,6 +105,31 @@ h5 {
 
 	&.center {
 		align-items: center;
+	}
+}
+
+$statuses: success, warning, error;
+$heading-orders: 1, 2, 3, 4, 5, 6;
+
+@each $status in $statuses {
+	:is(button, input[type='submit'], input[type='button'], [role='button']).#{$status} {
+		@include btn-ext($status);
+	}
+
+	:is(button, input[type='submit'], input[type='button'], [role='button']).outline.#{$status} {
+		@include outline-ext($status);
+	}
+}
+
+@each $status in $statuses {
+	:is(address, blockquote, dl, figure, form, ol, p, pre, table, ul).#{$status} {
+		color: var(--#{$status});
+	}
+
+	@each $order in $heading-orders {
+		h#{$order}.#{$status} {
+			--color: var(--#{$status}-h#{$order}-color);
+		}
 	}
 }
 

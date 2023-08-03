@@ -34,6 +34,7 @@ $tertiary-800: rgb(70 70 70); /* ⬅ #464646 */
 $tertiary-900: rgb(57 57 57); /* ⬅ #393939 */
 
 @import '@picocss/pico/scss/pico';
+@import '@picocss/pico/scss/colors/index';
 
 $background: #{mix($black, #546e7a, 12.5%)};
 

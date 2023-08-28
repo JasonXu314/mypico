@@ -72,7 +72,7 @@ h5 {
 .row {
 	display: flex;
 	flex-direction: row;
-	gap: var(--grid-spacing-horizontal);
+	gap: var(--grid-column-gap);
 
 	&:is(.c, .cr, .cl) * {
 		flex-basis: content;
@@ -96,7 +96,7 @@ h5 {
 .col {
 	display: flex;
 	flex-direction: column;
-	gap: var(--grid-spacing-horizontal);
+	gap: var(--grid-row-gap);
 
 	* {
 		width: fit-content;
